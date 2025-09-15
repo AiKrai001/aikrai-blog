@@ -1,0 +1,176 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../consts';
+
+// 获取所有博客文章
+const posts = await getCollection('blog');
+
+// 统计分类
+const categoryMap = new Map();
+posts.forEach(post => {
+  const categories = post.data.categories || [];
+  categories.forEach(category => {
+    if (categoryMap.has(category)) {
+      categoryMap.set(category, categoryMap.get(category) + 1);
+    } else {
+      categoryMap.set(category, 1);
+    }
+  });
+});
+
+const categories = Array.from(categoryMap.entries()).sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title={`分类 - ${SITE_TITLE}`} description="博客文章分类页面">
+  <div class="categories-container">
+    <header class="page-header">
+      <h1>分类</h1>
+      <p>共 {categories.length} 个分类，{posts.length} 篇文章</p>
+    </header>
+
+    <div class="categories-grid">
+      {categories.map(([category, count]) => (
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="far fa-folder"></i>
+          </div>
+          <div class="category-info">
+            <h3 class="category-name">
+              <a href={`/categories/${encodeURIComponent(category)}/`}>{category}</a>
+            </h3>
+            <p class="category-count">{count} 篇文章</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {categories.length === 0 && (
+      <div class="empty-state">
+        <i class="far fa-folder-open"></i>
+        <p>暂无分类</p>
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .categories-container {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--spacing-8);
+  }
+
+  .page-header h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-4);
+    color: var(--text-color);
+  }
+
+  .page-header p {
+    font-size: var(--font-size-lg);
+    color: var(--text-muted);
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-6);
+  }
+
+  .category-card {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-6);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+  }
+
+  .category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius-lg);
+    margin-right: var(--spacing-4);
+    font-size: var(--font-size-xl);
+  }
+
+  .category-info {
+    flex: 1;
+  }
+
+  .category-name {
+    margin: 0 0 var(--spacing-2) 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .category-name a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .category-name a:hover {
+    color: var(--primary-color);
+  }
+
+  .category-count {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-12) var(--spacing-4);
+    color: var(--text-muted);
+  }
+
+  .empty-state i {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-4);
+    opacity: 0.5;
+  }
+
+  .empty-state p {
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .categories-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-4);
+    }
+
+    .category-card {
+      padding: var(--spacing-4);
+    }
+
+    .category-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>

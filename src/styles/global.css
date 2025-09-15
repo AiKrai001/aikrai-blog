@@ -1,0 +1,156 @@
+/* 导入 Chirpy 主题变量 */
+@import './variables.css';
+
+/* Font Awesome 图标库 */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* 重置和基础样式 */
+* {
+  box-sizing: border-box;
+}
+@font-face {
+	font-family: "Atkinson";
+	src: url("/fonts/atkinson-regular.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Atkinson";
+	src: url("/fonts/atkinson-bold.woff") format("woff");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+body {
+	font-family: var(--font-family-base);
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	background-color: var(--bg-color);
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	color: var(--text-color);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-normal);
+	transition: color var(--transition-normal), background-color var(--transition-normal);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 var(--spacing-4) 0;
+	color: var(--text-color);
+	line-height: var(--line-height-tight);
+	font-weight: var(--font-weight-semibold);
+}
+h1 {
+	font-size: var(--font-size-4xl);
+}
+h2 {
+	font-size: var(--font-size-3xl);
+}
+h3 {
+	font-size: var(--font-size-2xl);
+}
+h4 {
+	font-size: var(--font-size-xl);
+}
+h5 {
+	font-size: var(--font-size-lg);
+}
+h6 {
+	font-size: var(--font-size-base);
+}
+strong,
+b {
+	font-weight: 700;
+}
+a {
+	color: var(--link-color);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+a:hover {
+	color: var(--link-hover-color);
+}
+p {
+	margin-bottom: 1em;
+}
+.prose p {
+	margin-bottom: 2em;
+}
+textarea {
+	width: 100%;
+	font-size: 16px;
+}
+input {
+	font-size: 16px;
+}
+table {
+	width: 100%;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+code {
+	padding: var(--spacing-1) var(--spacing-2);
+	background-color: var(--code-bg);
+	color: var(--code-color);
+	border-radius: var(--border-radius);
+	font-family: var(--font-family-mono);
+	font-size: 0.9em;
+}
+pre {
+	padding: var(--spacing-6);
+	background-color: var(--pre-bg);
+	color: var(--pre-color);
+	border-radius: var(--border-radius-lg);
+	overflow-x: auto;
+	line-height: var(--line-height-relaxed);
+}
+pre > code {
+	all: unset;
+	font-family: var(--font-family-mono);
+}
+blockquote {
+	border-left: 4px solid var(--blockquote-border);
+	background-color: var(--blockquote-bg);
+	padding: var(--spacing-4) var(--spacing-6);
+	margin: var(--spacing-6) 0;
+	border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+hr {
+	border: none;
+	border-top: 1px solid rgb(var(--gray-light));
+}
+@media (max-width: 720px) {
+	body {
+		font-size: 18px;
+	}
+	main {
+		padding: 1em;
+	}
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+	clip: rect(1px 1px 1px 1px);
+	/* maybe deprecated but we need to support legacy browsers */
+	clip: rect(1px, 1px, 1px, 1px);
+	/* modern browsers, clip-path works inwards from each corner */
+	clip-path: inset(50%);
+	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+	white-space: nowrap;
+}

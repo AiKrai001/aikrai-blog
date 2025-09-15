@@ -1,0 +1,143 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, tags } = post.data;
+const postSlug = post.id.replace(/\.mdx?$/, '');
+---
+
+<article class="post-card">
+  <div class="post-card-content">
+    <header class="post-header">
+      <h2 class="post-title">
+        <a href={`/blog/${postSlug}/`}>{title}</a>
+      </h2>
+      <div class="post-meta">
+        <time class="post-date">
+          <FormattedDate date={pubDate} />
+        </time>
+      </div>
+    </header>
+    
+    {description && (
+      <div class="post-excerpt">
+        <p>{description}</p>
+      </div>
+    )}
+    
+    {tags && tags.length > 0 && (
+      <footer class="post-footer">
+        <div class="post-tags">
+          {tags.map((tag: string) => (
+            <a href={`/tags/${encodeURIComponent(tag)}/`} class="tag">
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </footer>
+    )}
+  </div>
+</article>
+
+<style>
+  .post-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    overflow: hidden;
+  }
+
+  .post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .post-card-content {
+    padding: var(--spacing-6);
+  }
+
+  .post-header {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .post-title {
+    margin: 0 0 var(--spacing-2) 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+  }
+
+  .post-title a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .post-title a:hover {
+    color: var(--primary-color);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+  }
+
+  .post-date {
+    display: flex;
+    align-items: center;
+  }
+
+  .post-date::before {
+    content: '\f017';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    margin-right: var(--spacing-2);
+  }
+
+  .post-excerpt {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .post-excerpt p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .post-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-4);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-3);
+    background-color: var(--tag-bg);
+    color: var(--tag-color);
+    font-size: var(--font-size-sm);
+    border-radius: var(--border-radius-full);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .tag:hover {
+    background-color: var(--tag-hover-bg);
+    color: var(--primary-color);
+  }
+</style>

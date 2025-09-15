@@ -1,0 +1,278 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_TITLE } from '../consts';
+
+// 获取所有博客文章并按年份分组
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const postsByYear = new Map();
+posts.forEach(post => {
+  const year = post.data.pubDate.getFullYear();
+  if (postsByYear.has(year)) {
+    postsByYear.get(year).push(post);
+  } else {
+    postsByYear.set(year, [post]);
+  }
+});
+
+const years = Array.from(postsByYear.keys()).sort((a, b) => b - a);
+---
+
+<BaseLayout title={`归档 - ${SITE_TITLE}`} description="博客文章归档页面">
+  <div class="archives-container">
+    <header class="page-header">
+      <h1>归档</h1>
+      <p>共 {posts.length} 篇文章</p>
+    </header>
+
+    <div class="timeline">
+      {years.map(year => (
+        <div class="year-section">
+          <div class="year-header">
+            <h2 class="year-title">{year}</h2>
+            <span class="year-count">{postsByYear.get(year).length} 篇</span>
+          </div>
+          
+          <div class="posts-list">
+            {postsByYear.get(year).map((post: any) => {
+              const postSlug = post.id.replace(/\.mdx?$/, '');
+              return (
+                <article class="archive-post">
+                  <div class="post-date">
+                    <FormattedDate date={post.data.pubDate} />
+                  </div>
+                  <div class="post-content">
+                    <h3 class="post-title">
+                      <a href={`/blog/${postSlug}/`}>{post.data.title}</a>
+                    </h3>
+                    {post.data.description && (
+                      <p class="post-excerpt">{post.data.description}</p>
+                    )}
+                    {post.data.tags && post.data.tags.length > 0 && (
+                      <div class="post-tags">
+                        {post.data.tags.map((tag: string) => (
+                          <a href={`/tags/${encodeURIComponent(tag)}/`} class="tag">#{tag}</a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <div class="empty-state">
+        <i class="fas fa-archive"></i>
+        <p>暂无文章</p>
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .archives-container {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--spacing-8);
+  }
+
+  .page-header h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-4);
+    color: var(--text-color);
+  }
+
+  .page-header p {
+    font-size: var(--font-size-lg);
+    color: var(--text-muted);
+  }
+
+  .timeline {
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--border-color);
+  }
+
+  .year-section {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .year-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+    position: relative;
+  }
+
+  .year-header::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid var(--bg-color);
+    box-shadow: 0 0 0 2px var(--primary-color);
+  }
+
+  .year-title {
+    margin: 0;
+    padding-left: var(--spacing-12);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color);
+  }
+
+  .year-count {
+    padding: var(--spacing-1) var(--spacing-3);
+    background-color: var(--tag-bg);
+    color: var(--tag-color);
+    font-size: var(--font-size-sm);
+    border-radius: var(--border-radius-full);
+  }
+
+  .posts-list {
+    padding-left: var(--spacing-12);
+  }
+
+  .archive-post {
+    display: flex;
+    gap: var(--spacing-6);
+    padding: var(--spacing-4) 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .archive-post:last-child {
+    border-bottom: none;
+  }
+
+  .post-date {
+    flex-shrink: 0;
+    width: 6rem;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .post-content {
+    flex: 1;
+  }
+
+  .post-title {
+    margin: 0 0 var(--spacing-2) 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+  }
+
+  .post-title a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .post-title a:hover {
+    color: var(--primary-color);
+  }
+
+  .post-excerpt {
+    margin: 0 0 var(--spacing-3) 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--tag-bg);
+    color: var(--tag-color);
+    font-size: var(--font-size-xs);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .tag:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-12) var(--spacing-4);
+    color: var(--text-muted);
+  }
+
+  .empty-state i {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-4);
+    opacity: 0.5;
+  }
+
+  .empty-state p {
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 1rem;
+    }
+
+    .year-header::before {
+      left: 0.5rem;
+    }
+
+    .year-title {
+      padding-left: var(--spacing-8);
+      font-size: var(--font-size-xl);
+    }
+
+    .posts-list {
+      padding-left: var(--spacing-8);
+    }
+
+    .archive-post {
+      flex-direction: column;
+      gap: var(--spacing-2);
+    }
+
+    .post-date {
+      width: auto;
+      text-align: left;
+      font-weight: var(--font-weight-medium);
+    }
+  }
+</style>

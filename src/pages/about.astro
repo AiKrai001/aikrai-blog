@@ -1,0 +1,318 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_AUTHOR } from '../consts';
+---
+
+<BaseLayout title={`关于 - ${SITE_TITLE}`} description="关于我和这个博客">
+  <div class="about-container">
+    <img src = 'https://picgo-r2.aikrai.com/2024/12/9bf94ec4b8d47f42bacfac307010ed22.jpg' />
+
+    <!-- <article class="about-content">
+      <header class="about-header">
+        <div class="avatar-large">
+          <img src="/avatar.svg" alt="Avatar" />
+        </div>
+        <h1>关于我</h1>
+        <p class="subtitle">欢迎来到我的个人博客</p>
+      </header>
+
+      <div class="about-body">
+        <section class="intro-section">
+          <h2>👋 你好</h2>
+          <p>
+            我是 <strong>{SITE_AUTHOR}</strong>，一名热爱技术的开发者。这里是我分享技术文章、个人思考和生活感悟的地方。
+          </p>
+          <p>
+            我相信技术能够改变世界，也相信分享能够让知识传播得更远。希望我的文章能够对你有所帮助。
+          </p>
+        </section>
+
+        <section class="skills-section">
+          <h2>🛠️ 技能</h2>
+          <div class="skills-grid">
+            <div class="skill-category">
+              <h3>前端开发</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Vue</span>
+                <span class="skill-tag">Astro</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>后端开发</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Go</span>
+                <span class="skill-tag">PostgreSQL</span>
+                <span class="skill-tag">MongoDB</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>工具与平台</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">AWS</span>
+                <span class="skill-tag">Vercel</span>
+                <span class="skill-tag">Linux</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="contact-section">
+          <h2>📫 联系我</h2>
+          <p>如果你想与我交流，可以通过以下方式联系我：</p>
+          <div class="contact-links">
+            <a href="mailto:your.email@example.com" class="contact-link">
+              <i class="fas fa-envelope"></i>
+              <span>邮箱</span>
+            </a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="contact-link">
+              <i class="fab fa-github"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://twitter.com/yourusername" target="_blank" rel="noopener" class="contact-link">
+              <i class="fab fa-twitter"></i>
+              <span>Twitter</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="blog-section">
+          <h2>📝 关于这个博客</h2>
+          <p>
+            这个博客使用 <a href="https://astro.build/" target="_blank" rel="noopener">Astro</a> 构建，
+            主题灵感来自 <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>。
+          </p>
+          <p>
+            博客的源代码托管在 GitHub 上，如果你对实现细节感兴趣，欢迎查看源码。
+          </p>
+          <div class="blog-stats">
+            <div class="stat-item">
+              <div class="stat-number">∞</div>
+              <div class="stat-label">持续更新</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">开源</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">❤️</div>
+              <div class="stat-label">用心写作</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </article> -->
+  </div>
+</BaseLayout>
+
+<style>
+  .about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+  }
+
+  .about-content {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .about-header {
+    text-align: center;
+    padding: var(--spacing-8) var(--spacing-6);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+  }
+
+  .avatar-large {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto var(--spacing-6);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .avatar-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about-header h1 {
+    margin: 0 0 var(--spacing-2) 0;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+  }
+
+  .about-body {
+    padding: var(--spacing-8) var(--spacing-6);
+  }
+
+  .about-body section {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .about-body section:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-body h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-4);
+    color: var(--text-color);
+  }
+
+  .about-body p {
+    line-height: var(--line-height-relaxed);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .about-body a {
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-fast);
+  }
+
+  .about-body a:hover {
+    border-bottom-color: var(--primary-color);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+  }
+
+  .skill-category h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-3);
+    color: var(--text-color);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .skill-tag {
+    display: inline-block;
+    padding: var(--spacing-2) var(--spacing-3);
+    background-color: var(--tag-bg);
+    color: var(--tag-color);
+    font-size: var(--font-size-sm);
+    border-radius: var(--border-radius-full);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .contact-links {
+    display: flex;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-4);
+    background-color: var(--hover-bg);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: var(--border-radius-lg);
+    transition: all var(--transition-fast);
+    border: 1px solid var(--border-color);
+  }
+
+  .contact-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--primary-color);
+  }
+
+  .contact-link i {
+    font-size: var(--font-size-lg);
+  }
+
+  .blog-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: var(--spacing-6);
+    padding: var(--spacing-6);
+    background-color: var(--hover-bg);
+    border-radius: var(--border-radius-lg);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .about-header {
+      padding: var(--spacing-6) var(--spacing-4);
+    }
+
+    .avatar-large {
+      width: 100px;
+      height: 100px;
+    }
+
+    .about-header h1 {
+      font-size: var(--font-size-2xl);
+    }
+
+    .about-body {
+      padding: var(--spacing-6) var(--spacing-4);
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-4);
+    }
+
+    .contact-links {
+      justify-content: center;
+    }
+
+    .blog-stats {
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+  }
+</style>

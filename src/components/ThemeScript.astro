@@ -1,0 +1,10 @@
+---
+---
+
+<script is:inline>
+  // 主题初始化脚本，防止闪烁
+  (function() {
+    const theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>

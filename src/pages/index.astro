@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<div class="home-container">
+		<section class="posts-section">
+			<!-- <header class="section-header">
+				<h1>最新文章</h1>
+				<p>欢迎来到我的博客，这里分享技术文章和个人思考。</p>
+			</header> -->
+			
+			<div class="posts-grid">
+				{posts.map((post) => (
+					<PostCard post={post} />
+				))}
+			</div>
+			
+			{posts.length === 0 && (
+				<div class="empty-state">
+					<p>暂无文章，敬请期待...</p>
+				</div>
+			)}
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	.home-container {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+		padding: 0 var(--spacing-4);
+	}
+
+	.posts-section {
+		margin-bottom: var(--spacing-12);
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--spacing-8);
+	}
+
+	.section-header h1 {
+		font-size: var(--font-size-3xl);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: var(--spacing-4);
+		color: var(--text-color);
+	}
+
+	.section-header p {
+		font-size: var(--font-size-lg);
+		color: var(--text-muted);
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: var(--line-height-relaxed);
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: var(--spacing-6);
+		margin-bottom: var(--spacing-8);
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: var(--spacing-12) var(--spacing-4);
+		color: var(--text-muted);
+	}
+
+	.empty-state p {
+		font-size: var(--font-size-lg);
+		margin: 0;
+	}
+
+	/* 响应式设计 */
+	@media (max-width: 768px) {
+		.posts-grid {
+			grid-template-columns: 1fr;
+			gap: var(--spacing-4);
+		}
+
+		.section-header h1 {
+			font-size: var(--font-size-2xl);
+		}
+
+		.section-header p {
+			font-size: var(--font-size-base);
+		}
+	}
+</style>

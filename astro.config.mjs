@@ -7,7 +7,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	site: 'https://blog.aikrai.com',
 	integrations: [
 		expressiveCode({
 			// Use light/dark themes that follow your [data-theme="dark"] attribute

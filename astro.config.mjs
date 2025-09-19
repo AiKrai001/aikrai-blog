@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import expressiveCode from 'astro-expressive-code';
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +13,7 @@ export default defineConfig({
 		expressiveCode({
 			// Use light/dark themes that follow your [data-theme="dark"] attribute
 			themes: ['github-light', 'github-dark'],
+			removeUnusedThemes: true,
 			themeCssSelector: (theme) =>
 				theme.type === 'dark' ? '[data-theme="dark"]' : ':root',
 			// Avoid 404 for /_astro/ec.*.css during dev; emit only in production
@@ -25,4 +27,12 @@ export default defineConfig({
 		mdx(),
 		sitemap(),
 	],
+  // Use Vite's resolver for path aliases
+  vite: {
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+  },
 });

@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE_TITLE } from '../consts';
-import { encodePathSegmentSafe } from '../utils/safeSlug';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { encodePathSegmentSafe } from '../../utils/safeSlug';
 
 // 获取所有博客文章
 const posts = await getCollection('blog');

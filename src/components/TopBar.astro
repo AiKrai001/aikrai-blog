@@ -258,9 +258,9 @@
     font-size: var(--font-size-sm);
   }
 
-  .search-error {
-    color: var(--danger-color);
-  }
+  //.search-error {
+  //  color: var(--danger-color);
+  //}
 
   .search-result-item {
     border-bottom: 1px solid var(--border-color);
@@ -377,7 +377,7 @@
     sidebarToggle?.addEventListener('click', toggleSidebar);
     sidebarOverlay?.addEventListener('click', toggleSidebar);
 
-    function updateThemeIcon(isDark) {
+    function updateThemeIcon(isDark: boolean) {
       if (themeIcon) themeIcon.setAttribute('data-theme', isDark ? 'dark' : 'light');
     }
     const currentTheme = localStorage.getItem('theme') || 'light';

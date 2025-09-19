@@ -8,9 +8,10 @@ categories: ['Android']
 author: 'AiKrai'
 ---
 
-现在不管是手机系统自带的天气app还是其他天气app多多少少带点广告，就很烦，于是想用cursor写一个。
+现在不管是手机系统自带的天气app，还是其他第三方天气app，多多少少带点广告，就很烦，于是用cursor简单写了一个。
 
-一开始用的google的定位服务，后来换了腾讯地图sdk。因为不会一点安卓的东西加比较菜，写的简单一点。
+- 定位服务和地点搜索使用腾讯地图sdk
+- 天气数据调用彩云天气api获取
 
 👉 [GitHub仓库](https://github.com/AiKrai001/first-app)
 

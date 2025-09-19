@@ -10,8 +10,8 @@ export async function GET(context) {
 		site: context.site,
 		items: posts.map((post) => ({
 			...post.data,
-			// Use id without extension to match routes
-			link: `/blog/${post.id}/`,
+			// Use id without extension and normalized (spaces->-, lowercase) to match routes
+			link: `/blog/${post.id.replace(/\.mdx?$/, '').replace(/\s+/g, '-').toLowerCase()}/`,
 		})),
 	});
 }

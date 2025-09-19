@@ -5,7 +5,8 @@ import PostLayout from '../../layouts/PostLayout.astro';
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
-		params: { slug: post.id },
+		// Use id without extension and normalize (spaces->-, lowercase) to match links
+		params: { slug: post.id.replace(/\.mdx?$/, '').replace(/\s+/g, '-').toLowerCase() },
 		props: post,
 	}));
 }

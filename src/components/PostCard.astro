@@ -9,7 +9,11 @@ export interface Props {
 
 const { post } = Astro.props;
 const { title, description, pubDate, tags } = post.data;
-const postSlug = post.id.replace(/\.mdx?$/, '');
+// Normalize to match Astro's route casing in dist (spaces -> '-', ASCII lowercased)
+const postSlug = post.id
+  .replace(/\.mdx?$/, '')
+  .replace(/\s+/g, '-')
+  .toLowerCase();
 ---
 
 <article class="post-card">
@@ -24,13 +28,13 @@ const postSlug = post.id.replace(/\.mdx?$/, '');
         </time>
       </div>
     </header>
-    
+
     {description && (
       <div class="post-excerpt">
         <p>{description}</p>
       </div>
     )}
-    
+
     {tags && tags.length > 0 && (
       <footer class="post-footer">
         <div class="post-tags">
@@ -100,7 +104,7 @@ const postSlug = post.id.replace(/\.mdx?$/, '');
 
   .post-date::before {
     content: '\f017';
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 6 Free',serif;
     font-weight: 400;
     margin-right: var(--spacing-2);
   }

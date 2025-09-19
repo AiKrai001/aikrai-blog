@@ -2,10 +2,27 @@
 
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import expressiveCode from 'astro-expressive-code';
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
+	integrations: [
+		expressiveCode({
+			// Use light/dark themes that follow your [data-theme="dark"] attribute
+			themes: ['github-light', 'github-dark'],
+			themeCssSelector: (theme) =>
+				theme.type === 'dark' ? '[data-theme="dark"]' : ':root',
+			// Avoid 404 for /_astro/ec.*.css during dev; emit only in production
+			emitExternalStylesheet: process.env.NODE_ENV === 'production',
+			shiki: {
+				// Ensure Dockerfile code fences are highlighted
+				bundledLangs: ['dockerfile'],
+				langAlias: { Dockerfile: 'dockerfile', docker: 'dockerfile' },
+			},
+		}),
+		mdx(),
+		sitemap(),
+	],
 });

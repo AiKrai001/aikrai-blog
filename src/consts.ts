@@ -2,12 +2,13 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = 'AiKrai\'s Blog';
-export const SITE_DESCRIPTION = 'wellcome！！！';
+export const SITE_DESCRIPTION = 'personal blog';
 export const SITE_AUTHOR = 'AiKrai';
 export const SITE_URL = 'https://blog.aikrai.com';
 
 export const AUTHOR_INFO = {
   avatarUrl: 'https://picgo-r2.aikrai.com/aikrai/vivy.jpg',
+  description: 'welcome！！！'
 };
 
 // 社交链接配置

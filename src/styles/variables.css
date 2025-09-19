@@ -5,57 +5,57 @@
   --sidebar-width: 260px;
   --topbar-height: 3.5rem;
   --content-max-width: 1140px;
-  
+
   /* 浅色主题 */
   --bg-color: #ffffff;
   --text-color: #212529;
   --text-muted: #6c757d;
-  --primary-color: #007bff;
-  --primary-hover: #0056b3;
-  
+  --primary-color: #323233;
+  --primary-hover: #EAEFF5;
+
   /* 背景色 */
   --sidebar-bg: #f8f9fa;
   --topbar-bg: rgba(255, 255, 255, 0.85);
   --card-bg: #ffffff;
   --hover-bg: rgba(0, 123, 255, 0.1);
-  
+
   /* 边框和分割线 */
   --border-color: #dee2e6;
   --divider-color: #e9ecef;
-  
+
   /* 阴影 */
   --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-  
+
   /* 代码块 */
   --code-bg: #f8f9fa;
   --code-color: #e83e8c;
   --pre-bg: #f8f9fa;
   --pre-color: #212529;
-  
+
   /* 链接 */
   --link-color: #007bff;
   --link-hover-color: #0056b3;
-  
+
   /* 标签和徽章 */
   --tag-bg: #e9ecef;
   --tag-color: #495057;
   --tag-hover-bg: #dee2e6;
-  
+
   /* 表格 */
   --table-border-color: #dee2e6;
   --table-stripe-bg: rgba(0, 0, 0, 0.05);
-  
+
   /* 引用块 */
   --blockquote-border: #007bff;
   --blockquote-bg: rgba(0, 123, 255, 0.05);
-  
+
   /* 输入框 */
   --input-bg: #ffffff;
   --input-border: #ced4da;
   --input-focus-border: #80bdff;
-  
+
   /* 按钮 */
   --btn-primary-bg: #007bff;
   --btn-primary-border: #007bff;
@@ -65,55 +65,55 @@
 
 /* 暗色主题 */
 [data-theme="dark"] {
-  --bg-color: #1b1b1e;
+  --bg-color: #1B1B1E;
   --text-color: #f8f9fa;
   --text-muted: #adb5bd;
-  --primary-color: #4dabf7;
-  --primary-hover: #339af0;
-  
+  --primary-color: #DFDFDF;
+  --primary-hover: #252525;
+
   /* 背景色 */
-  --sidebar-bg: #212529;
+  --sidebar-bg: #1E1E1E;
   --topbar-bg: rgba(33, 37, 41, 0.85);
-  --card-bg: #2d3748;
+  --card-bg: #1E1E1E;
   --hover-bg: rgba(77, 171, 247, 0.1);
-  
+
   /* 边框和分割线 */
   --border-color: #495057;
   --divider-color: #495057;
-  
+
   /* 阴影 */
   --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
   --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.5);
-  
+
   /* 代码块 */
   --code-bg: #495057;
   --code-color: #f783ac;
   --pre-bg: #2d3748;
   --pre-color: #f8f9fa;
-  
+
   /* 链接 */
   --link-color: #4dabf7;
   --link-hover-color: #339af0;
-  
+
   /* 标签和徽章 */
   --tag-bg: #495057;
   --tag-color: #f8f9fa;
   --tag-hover-bg: #6c757d;
-  
+
   /* 表格 */
   --table-border-color: #495057;
   --table-stripe-bg: rgba(255, 255, 255, 0.05);
-  
+
   /* 引用块 */
   --blockquote-border: #4dabf7;
   --blockquote-bg: rgba(77, 171, 247, 0.1);
-  
+
   /* 输入框 */
   --input-bg: #2d3748;
   --input-border: #495057;
   --input-focus-border: #4dabf7;
-  
+
   /* 按钮 */
   --btn-primary-bg: #4dabf7;
   --btn-primary-border: #4dabf7;
@@ -125,7 +125,7 @@
 :root {
   --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  
+
   /* 字体大小 */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -135,13 +135,13 @@
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
-  
+
   /* 行高 */
   --line-height-tight: 1.25;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.625;
   --line-height-loose: 2;
-  
+
   /* 字重 */
   --font-weight-light: 300;
   --font-weight-normal: 400;

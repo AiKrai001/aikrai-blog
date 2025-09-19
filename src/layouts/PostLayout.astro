@@ -245,7 +245,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [], categori
     font-size: 0.875em;
   }
 
-  .post-content :global(pre) {
+  .post-content :global(pre):not([class*="ec-"]) {
     background-color: var(--code-block-bg);
     color: var(--code-block-color);
     padding: 1.5rem;
@@ -255,7 +255,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [], categori
     line-height: 1.5;
   }
 
-  .post-content :global(pre code) {
+  .post-content :global(pre:not([class*="ec-"]) code) {
     background: none;
     padding: 0;
     color: inherit;
@@ -285,6 +285,16 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [], categori
     height: auto;
     border-radius: var(--border-radius);
     margin: 1rem 0;
+  }
+
+  /* 为标题设置滚动捕捉的上内边距，避免锚点被顶部导航遮挡 */
+  .post-content :global(h1),
+  .post-content :global(h2),
+  .post-content :global(h3),
+  .post-content :global(h4),
+  .post-content :global(h5),
+  .post-content :global(h6) {
+    scroll-margin-top: calc(var(--topbar-height) + 1rem);
   }
 
   .post-footer {

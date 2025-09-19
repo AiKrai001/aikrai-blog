@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import { SITE_TITLE } from '../../consts';
+import { decodePathSegmentSafe, encodePathSegmentSafe } from '../../utils/safeSlug';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -14,15 +15,15 @@ export async function getStaticPaths() {
   });
 
   return Array.from(categories).map(category => ({
-    params: { category: encodeURIComponent(category) },
+    params: { category: encodePathSegmentSafe(category) },
     props: { category }
   }));
 }
 
 const { category } = Astro.props as { category: string };
-// 从URL参数中获取分类名并解码
+// 从URL参数中获取分类名（安全解码）
 const categoryParam = Astro.params.category as string;
-const decodedCategory = categoryParam ? decodeURIComponent(categoryParam) : category;
+const decodedCategory = categoryParam ? decodePathSegmentSafe(categoryParam) : category;
 
 const posts = (await getCollection('blog')).filter(post => 
   post.data.categories && post.data.categories.includes(decodedCategory)
@@ -129,7 +130,7 @@ const posts = (await getCollection('blog')).filter(post =>
     margin: 0;
   }
 
-  /* 响应式设计 */
+  /* 响应式设置 */
   @media (max-width: 768px) {
     .category-info {
       flex-direction: column;
@@ -149,3 +150,4 @@ const posts = (await getCollection('blog')).filter(post =>
     
   }
 </style>
+

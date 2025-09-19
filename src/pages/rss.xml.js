@@ -11,7 +11,7 @@ export async function GET(context) {
 		items: posts.map((post) => ({
 			...post.data,
 			// Use id without extension to match routes
-			link: `/blog/${post.id.replace(/\.mdx?$/, '')}/`,
+			link: `/blog/${post.id}/`,
 		})),
 	});
 }

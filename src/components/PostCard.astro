@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
+import { encodePathSegmentSafe } from '../utils/safeSlug';
 
 export interface Props {
   post: CollectionEntry<'blog'>;
@@ -34,7 +35,7 @@ const postSlug = post.id.replace(/\.mdx?$/, '');
       <footer class="post-footer">
         <div class="post-tags">
           {tags.map((tag: string) => (
-            <a href={`/tags/${encodeURIComponent(tag)}/`} class="tag">
+            <a href={`/tags/${encodePathSegmentSafe(tag)}/`} class="tag">
               #{tag}
             </a>
           ))}

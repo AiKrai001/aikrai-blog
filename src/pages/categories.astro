@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_TITLE } from '../consts';
+import { encodePathSegmentSafe } from '../utils/safeSlug';
 
 // 获取所有博客文章
 const posts = await getCollection('blog');
@@ -37,7 +38,7 @@ const categories = Array.from(categoryMap.entries()).sort((a, b) => b[1] - a[1])
           </div>
           <div class="category-info">
             <h3 class="category-name">
-              <a href={`/categories/${encodeURIComponent(category)}/`}>{category}</a>
+              <a href={`/categories/${encodePathSegmentSafe(category)}/`}>{category}</a>
             </h3>
             <p class="category-count">{count} 篇文章</p>
           </div>

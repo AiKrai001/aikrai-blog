@@ -1,4 +1,4 @@
----
+﻿---
 ---
 
 <header id="topbar" class="topbar">
@@ -23,10 +23,10 @@
       <!-- <div class="search-container">
         <div class="search-box">
           <i class="fas fa-search search-icon"></i>
-          <input 
-            type="text" 
-            id="search-input" 
-            class="search-input" 
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
             placeholder="搜索文章..."
             autocomplete="off"
           />
@@ -362,249 +362,77 @@
 </style>
 
 <script>
-  // 侧边栏切换
+  // Minimal script: sidebar toggle, theme icon, and breadcrumbs
   document.addEventListener('DOMContentLoaded', () => {
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
 
     function toggleSidebar() {
       sidebar?.classList.toggle('show');
       sidebarOverlay?.classList.toggle('show');
     }
-
     sidebarToggle?.addEventListener('click', toggleSidebar);
     sidebarOverlay?.addEventListener('click', toggleSidebar);
 
-    // 主题切换
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-
-    function updateThemeIcon(isDark: boolean) {
-      // 使用固定的对比度图标，不再切换太阳/月亮类名
-      if (themeIcon) {
-        themeIcon.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      }
+    function updateThemeIcon(isDark) {
+      if (themeIcon) themeIcon.setAttribute('data-theme', isDark ? 'dark' : 'light');
     }
-
-    // 初始化主题图标
     const currentTheme = localStorage.getItem('theme') || 'light';
     updateThemeIcon(currentTheme === 'dark');
-
     themeToggle?.addEventListener('click', () => {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       const newTheme = isDark ? 'light' : 'dark';
-      
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme === 'dark');
     });
 
-    // 搜索功能
-    const searchInput = document.getElementById('search-input') as HTMLInputElement;
-    const searchClear = document.getElementById('search-clear');
-    const searchResults = document.getElementById('search-results');
-    
-    if (searchInput && searchClear && searchResults) {
-      let searchTimeout: NodeJS.Timeout;
-      
-      // 搜索输入处理
-      searchInput.addEventListener('input', function() {
-        const query = this.value.trim();
-        
-        if (query.length > 0) {
-          searchClear.classList.add('show');
-          
-          // 防抖搜索
-          clearTimeout(searchTimeout);
-          searchTimeout = setTimeout(() => {
-            performSearch(query);
-          }, 300);
-        } else {
-          searchClear.classList.remove('show');
-          searchResults.classList.remove('show');
-        }
-      });
-      
-      // 清除搜索
-      searchClear.addEventListener('click', function() {
-        searchInput.value = '';
-        searchClear.classList.remove('show');
-        searchResults.classList.remove('show');
-        searchInput.focus();
-      });
-      
-      // 点击外部关闭搜索结果
-      document.addEventListener('click', function(e) {
-        if (!(e.target as Element).closest('.search-container')) {
-          searchResults.classList.remove('show');
-        }
-      });
-      
-      // 键盘导航支持
-      searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          searchResults.classList.remove('show');
-          searchInput.blur();
-        }
-      });
-    }
-
-    // 动态面包屑导航
+    // Breadcrumbs
     const breadcrumbList = document.getElementById('breadcrumb-list');
     if (breadcrumbList) {
-      const currentPath = window.location.pathname;
-      const pathSegments = currentPath.split('/').filter(segment => segment);
-      
-      // 清除默认面包屑（保留首页）
+      const pathSegments = window.location.pathname.split('/').filter(Boolean);
       const homeItem = breadcrumbList.querySelector('.breadcrumb-item');
       breadcrumbList.innerHTML = '';
-      if (homeItem) {
-        breadcrumbList.appendChild(homeItem);
-      }
-      
-      // 根据路径生成面包屑
+      if (homeItem) breadcrumbList.appendChild(homeItem);
+
       let currentUrl = '';
       pathSegments.forEach((segment, index) => {
         currentUrl += '/' + segment;
         const isLast = index === pathSegments.length - 1;
-        
-        // 对于博客文章页面，跳过 "blog" 段，直接显示文章标题
-        if (segment === 'blog' && pathSegments.length > 1) {
-          return; // 跳过 blog 段
-        }
-        
+
         const li = document.createElement('li');
         li.className = 'breadcrumb-item';
-        
         let displayName = segment;
-        let linkUrl = currentUrl;
-        
-        // URL解码处理中文字符
-        try {
-          displayName = decodeURIComponent(segment);
-        } catch (e) {
-          // 如果解码失败，使用原始字符串
-          displayName = segment;
+        try { displayName = decodeURIComponent(segment.split('~').join('%')); } catch {}
+        // Skip the pseudo folder "blog" (no index page)
+        if (segment === 'blog' && pathSegments.length > 1) {
+          return;
         }
-        
-        // 自定义显示名称
         if (segment === 'categories') displayName = '分类';
         else if (segment === 'tags') displayName = '标签';
         else if (segment === 'archives') displayName = '归档';
         else if (segment === 'about') displayName = '关于';
         else if (pathSegments[0] === 'blog' && isLast) {
-          // 如果是博客文章页面的最后一段（文章标题），格式化显示
+          // Prettify last blog slug
           if (displayName.includes('-')) {
-            displayName = displayName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            displayName = displayName.replace(/-/g, ' ').replace(/\b\w/g, s => s.toUpperCase());
           }
         }
-        
-        // 在每个面包屑项之前加入分隔符（首页后面开始）
+
         const sep = document.createElement('li');
         sep.className = 'breadcrumb-sep';
         sep.textContent = '/';
         breadcrumbList.appendChild(sep);
 
-        if (isLast) {
-          li.innerHTML = `<span>${displayName}</span>`;
-        } else {
-          // 在详情页，将“分类/标签”显示为普通文本
-          if ((segment === 'categories' || segment === 'tags') && pathSegments.length > index + 1) {
-            li.innerHTML = `<span>${displayName}</span>`;
-          } else {
-            li.innerHTML = `<a href="${linkUrl}">${displayName}</a>`;
-          }
-        }
-
+        li.innerHTML = isLast ? `<span>${displayName}</span>` : `<a href="${currentUrl}">${displayName}</a>`;
         breadcrumbList.appendChild(li);
-
-        // 保证除最后一段外均为可点击链接（回退处理）
-        if (!isLast && li.querySelector('span')) {
-          li.innerHTML = `<a href="${linkUrl}">${displayName}</a>`;
-        }
       });
     }
   });
-
-  // 执行搜索
-  async function performSearch(query: string) {
-    const searchResults = document.getElementById('search-results');
-    if (!searchResults) return;
-    
-    try {
-      // 显示加载状态
-      searchResults.innerHTML = '<div class="search-loading">搜索中...</div>';
-      searchResults.classList.add('show');
-      
-      // 这里应该调用实际的搜索API，现在先用模拟数据
-      const results = await mockSearch(query);
-      
-      if (results.length > 0) {
-        searchResults.innerHTML = results.map(result => `
-          <div class="search-result-item">
-            <a href="${result.url}" class="search-result-link">
-              <div class="search-result-title">${highlightText(result.title, query)}</div>
-              <div class="search-result-excerpt">${highlightText(result.excerpt, query)}</div>
-              <div class="search-result-meta">
-                <span class="search-result-date">${result.date}</span>
-                ${result.category ? `<span class="search-result-category">${result.category}</span>` : ''}
-              </div>
-            </a>
-          </div>
-        `).join('');
-      } else {
-        searchResults.innerHTML = '<div class="search-no-results">未找到相关文章</div>';
-      }
-      
-      searchResults.classList.add('show');
-    } catch (error) {
-      console.error('搜索出错:', error);
-      searchResults.innerHTML = '<div class="search-error">搜索出错，请稍后重试</div>';
-      searchResults.classList.add('show');
-    }
-  }
-
-  // 模拟搜索函数（实际项目中应该替换为真实的搜索逻辑）
-  async function mockSearch(query: string) {
-    // 模拟API延迟
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
-    // 模拟搜索结果
-    const mockData = [
-      { 
-        title: 'Astro 静态站点生成器入门', 
-        excerpt: '学习如何使用 Astro 构建现代静态网站，包括组件系统、内容集合等核心概念。', 
-        url: '/blog/astro-getting-started/',
-        date: '2024-01-15',
-        category: '前端开发'
-      },
-      { 
-        title: 'TypeScript 最佳实践指南', 
-        excerpt: '深入了解 TypeScript 的高级特性和最佳实践，提升代码质量和开发效率。', 
-        url: '/blog/typescript-best-practices/',
-        date: '2024-01-10',
-        category: '编程语言'
-      },
-      { 
-        title: 'CSS Grid 布局完全指南', 
-        excerpt: '掌握 CSS Grid 布局系统，创建复杂而灵活的网页布局。', 
-        url: '/blog/css-grid-guide/',
-        date: '2024-01-05',
-        category: '前端开发'
-      }
-    ];
-    
-    return mockData.filter(item => 
-      item.title.toLowerCase().includes(query.toLowerCase()) ||
-      item.excerpt.toLowerCase().includes(query.toLowerCase()) ||
-      item.category.toLowerCase().includes(query.toLowerCase())
-    );
-  }
-
-  // 高亮搜索关键词
-  function highlightText(text: string, query: string): string {
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  }
 </script>
+
+
+

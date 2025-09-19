@@ -5,6 +5,7 @@ import type { ImageMetadata } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import { encodePathSegmentSafe } from '../utils/safeSlug';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   headings: Array<{
@@ -43,7 +44,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [], categori
                 <i class="fas fa-folder"></i>
                 {categories.map((category, index) => (
                   <span>
-                    <a href={`/categories/${encodeURIComponent(category)}/`} class="category-link">{category}</a>
+                    <a href={`/categories/${encodePathSegmentSafe(category)}/`} class="category-link">{category}</a>
                     {index < categories.length - 1 && ', '}
                   </span>
                 ))}
@@ -77,7 +78,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [], categori
               <i class="fas fa-tags"></i>
               <span class="tags-label">标签：</span>
               {tags.map((tag) => (
-                <a href={`/tags/${encodeURIComponent(tag)}/`} class="tag-link">#{tag}</a>
+                <a href={`/tags/${encodePathSegmentSafe(tag)}/`} class="tag-link">#{tag}</a>
               ))}
             </div>
           </footer>

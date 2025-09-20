@@ -1,6 +1,6 @@
 ## AiKrai's Blog
 
-基于 Astro 的个人博客，已做中文化与博客常用功能增强：标签、分类、归档、目录、RSS、站点地图、代码高亮与明暗主题等。
+基于 Astro 的个人博客，已做中文化与博客常用功能增强：标签、分类、归档、目录、RSS、站点地图、代码高亮与明暗主题等。样式简陋复刻了 Chirpy 主题。
 
 - 在线地址: https://blog.aikrai.com
 - 技术栈: Astro 5、MD/MDX、astro-expressive-code、Shiki、PNPM
@@ -106,9 +106,4 @@ location / {
   try_files $uri $uri/ /index.html;
 }
 ```
-
-## 鸣谢
-
-- 基于 Astro 官方 Blog 模板改造
-- 样式与信息架构参考了 Chirpy 主题的优秀实践
 

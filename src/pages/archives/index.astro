@@ -40,7 +40,10 @@ const years = Array.from(postsByYear.keys()).sort((a, b) => b - a);
           
           <div class="posts-list">
             {postsByYear.get(year).map((post: any) => {
-              const postSlug = post.id.replace(/\.mdx?$/, '');
+              const postSlug = post.id
+                .replace(/\.mdx?$/, '')
+                .replace(/\s+/g, '-')
+                .toLowerCase();
               return (
                 <article class="archive-post">
                   <div class="post-date">

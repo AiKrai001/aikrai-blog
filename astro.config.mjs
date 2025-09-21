@@ -4,7 +4,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import expressiveCode from 'astro-expressive-code';
 import { defineConfig } from 'astro/config';
-import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,12 +26,4 @@ export default defineConfig({
 		mdx(),
 		sitemap(),
 	],
-  // Use Vite's resolver for path aliases
-  vite: {
-    resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
-    },
-  },
 });

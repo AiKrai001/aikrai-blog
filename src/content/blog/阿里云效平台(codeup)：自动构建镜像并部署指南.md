@@ -3,7 +3,7 @@ title: "阿里云效平台(codeup)：自动构建镜像并部署指南"
 description: ''
 pubDate: '2024 06 18'
 heroImage: ''
-tags: ['codeup', 'CI/CD']
+tags: ['Codeup', 'CI/CD']
 categories: ['CI/CD']
 author: 'AiKrai'
 ---

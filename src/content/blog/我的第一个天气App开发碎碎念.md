@@ -3,7 +3,7 @@ title: "我的第一个天气App开发碎碎念"
 description: ''
 pubDate: '2024 06 18'
 heroImage: ''
-tags: ['Android', 'App']
+tags: ['Android']
 categories: ['Android']
 author: 'AiKrai'
 ---

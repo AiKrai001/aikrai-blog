@@ -3,7 +3,7 @@ title: "Registry docker-compose部署"
 description: ''
 pubDate: '2024 06 18'
 heroImage: ''
-tags: ['docker', 'registry']
+tags: ['Docker', 'Registry']
 categories: ['Docker']
 author: 'AiKrai'
 ---

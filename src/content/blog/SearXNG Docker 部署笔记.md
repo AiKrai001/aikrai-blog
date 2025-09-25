@@ -25,7 +25,7 @@ author: 'AiKrai'
 
 可以根据需求修改docker-compose.yaml。我使用的1panel面板安装了OpenResty就去掉了caddy。需要限制ip就保留了valkey。
 
-```dockerfile
+```yaml
 services:
   valkey:
     container_name: valkey
@@ -214,47 +214,47 @@ http {
 - API 使用贴一个 spring boot 项目中的方法，参数详情查看 [API 文档](https://docs.searxng.org/dev/search_api.html#parameters) 。
 
 ```java
-	/**
-     * 使用GET方法执行搜索
-     *
-     * @param params 搜索参数
-     * @return 搜索结果
-     */
-    public SearXNGSearchResult searchWithGet(SearXNGSearchParams params) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searxngHost + "/search")
-                .queryParam("q", params.getQ())
-                .queryParam("format", "json");
+/**
+ * 使用GET方法执行搜索
+ *
+ * @param params 搜索参数
+ * @return 搜索结果
+ */
+public SearXNGSearchResult searchWithGet(SearXNGSearchParams params) {
+  UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searxngHost + "/search")
+      .queryParam("q", params.getQ())
+      .queryParam("format", "json");
 
-        // 添加可选参数
-        if (params.getCategories() != null && !params.getCategories().isEmpty()) {
-            builder.queryParam("categories", String.join(",", params.getCategories()));
-        }
-        if (params.getEngines() != null && !params.getEngines().isEmpty()) {
-            builder.queryParam("engines", String.join(",", params.getEngines()));
-        }
-        if (params.getLanguage() != null) {
-            builder.queryParam("language", params.getLanguage());
-        }
-        if (params.getPageno() != null) {
-            builder.queryParam("pageno", params.getPageno());
-        }
-        if (params.getTime_range() != null) {
-            builder.queryParam("time_range", params.getTime_range());
-        }
+  // 添加可选参数
+  if (params.getCategories() != null && !params.getCategories().isEmpty()) {
+    builder.queryParam("categories", String.join(",", params.getCategories()));
+  }
+  if (params.getEngines() != null && !params.getEngines().isEmpty()) {
+    builder.queryParam("engines", String.join(",", params.getEngines()));
+  }
+  if (params.getLanguage() != null) {
+    builder.queryParam("language", params.getLanguage());
+  }
+  if (params.getPageno() != null) {
+    builder.queryParam("pageno", params.getPageno());
+  }
+  if (params.getTime_range() != null) {
+    builder.queryParam("time_range", params.getTime_range());
+  }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+  HttpHeaders headers = new HttpHeaders();
+  headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-        HttpEntity<?> entity = new HttpEntity<>(headers);
+  HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<SearXNGSearchResult> response = restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.GET,
-                entity,
-                SearXNGSearchResult.class);
+  ResponseEntity<SearXNGSearchResult> response = restTemplate.exchange(
+      builder.toUriString(),
+      HttpMethod.GET,
+      entity,
+      SearXNGSearchResult.class);
 
-        return response.getBody();
-    }
+  return response.getBody();
+}
 ```
 
 - 可以使用 API 编写一个联网搜索的 mcp 工具 。例如 [duckduckgo-mcp-server](https://github.com/nickclyde/duckduckgo-mcp-server) ，[brave-search-mcp-server](https://github.com/brave/brave-search-mcp-server)，[tavily-mcp](https://docs.tavily.com/documentation/mcp) 。

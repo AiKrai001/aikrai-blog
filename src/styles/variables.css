@@ -30,13 +30,23 @@
 
   /* 代码块 */
   --code-bg: #f8f9fa;
-  --code-color: #e83e8c;
+  --code-color: var(--primary-color);
   --pre-bg: #f8f9fa;
   --pre-color: #212529;
+  --code-line-number-color: #8791a1;
+  --ec-codeFontFml: var(--font-family-mono);
+  --ec-codeFontSize: 0.95rem;
+  --ec-codeLineHt: 1.7;
+  --ec-codePadInl: 1.25rem;
+  --ec-gtrFg: var(--code-line-number-color);
+  --ec-gtrBrdCol: rgba(0, 0, 0, 0.08);
 
   /* 链接 */
   --link-color: #007bff;
   --link-hover-color: #0056b3;
+  --link-visited-color: #6f42c1;
+  --link-underline-color: rgba(0, 123, 255, 0.4);
+  --link-underline-hover-color: rgba(0, 86, 179, 0.6);
 
   /* 标签和徽章 */
   --tag-bg: #e9ecef;
@@ -88,13 +98,23 @@
 
   /* 代码块 */
   --code-bg: #495057;
-  --code-color: #f783ac;
+  --code-color: var(--primary-color);
   --pre-bg: #2d3748;
   --pre-color: #f8f9fa;
+  --code-line-number-color: #b5bdc9;
+  --ec-codeFontFml: var(--font-family-mono);
+  --ec-codeFontSize: 0.95rem;
+  --ec-codeLineHt: 1.7;
+  --ec-codePadInl: 1.25rem;
+  --ec-gtrFg: var(--code-line-number-color);
+  --ec-gtrBrdCol: rgba(255, 255, 255, 0.12);
 
   /* 链接 */
   --link-color: #4dabf7;
   --link-hover-color: #339af0;
+  --link-visited-color: #b197fc;
+  --link-underline-color: rgba(77, 171, 247, 0.45);
+  --link-underline-hover-color: rgba(51, 154, 240, 0.65);
 
   /* 标签和徽章 */
   --tag-bg: #495057;

@@ -11,7 +11,7 @@ export default defineConfig({
 	integrations: [
 		expressiveCode({
 			// Use light/dark themes that follow your [data-theme="dark"] attribute
-			themes: ['github-light', 'github-dark'],
+			themes: ['min-light', 'min-dark'],
 			removeUnusedThemes: true,
 			themeCssSelector: (theme) =>
 				theme.type === 'dark' ? '[data-theme="dark"]' : ':root',
@@ -19,8 +19,8 @@ export default defineConfig({
 			emitExternalStylesheet: process.env.NODE_ENV === 'production',
 			shiki: {
 				// Ensure Dockerfile code fences are highlighted
-				bundledLangs: ['dockerfile'],
-				langAlias: { Dockerfile: 'dockerfile', docker: 'dockerfile' },
+				bundledLangs: ['dockerfile', 'yaml', 'toml', 'bash', 'nginx', 'json', 'kotlin', 'java'],
+				langAlias: { Dockerfile: 'dockerfile', docker: 'dockerfile', yml: 'yaml', compose: 'yaml', toml: 'toml' },
 			},
 		}),
 		mdx(),

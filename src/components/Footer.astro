@@ -3,7 +3,10 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} AiKrai. All rights reserved.
+	<div>&copy; {today.getFullYear()} AiKrai. All rights reserved.</div>
+	<a class="beian" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+		陕ICP备2023008090号-1
+	</a>
 	<!-- <div class="social-links">
 		<a href="https://m.webtoo.ls/@astro" target="_blank">
 			<span class="sr-only">Follow Astro on Mastodon</span>
@@ -45,6 +48,16 @@ const today = new Date();
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
 		text-align: center;
+	}
+	.beian {
+		display: inline-block;
+		margin-top: 0.75em;
+		color: inherit;
+		text-decoration: none;
+	}
+	.beian:hover {
+		color: rgb(var(--gray-dark));
+		text-decoration: underline;
 	}
 	.social-links {
 		display: flex;

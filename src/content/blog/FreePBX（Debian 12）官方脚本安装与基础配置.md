@@ -8,7 +8,6 @@ categories: ['voip']
 author: 'AiKrai'
 ---
 
-````markdown
 # FreePBX（Debian 12）官方脚本安装与基础配置指南（含 Cloudflare + SSL + SIP 客户端）
 
 > 适用环境：一台全新 **Debian 12** VPS（2C2G 也可跑起来，但并发/转码能力有限）  
@@ -81,7 +80,7 @@ author: 'AiKrai'
 
 ```bash
 fwconsole firewall trust x.x.x.x/32 "my-ip"
-````
+
 
 ### 4.3 加白一个网段
 

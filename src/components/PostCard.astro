@@ -19,14 +19,14 @@ const postSlug = post.id
 <article class="post-card">
   <div class="post-card-content">
     <header class="post-header">
-      <h2 class="post-title">
-        <a href={`/blog/${postSlug}/`}>{title}</a>
-      </h2>
       <div class="post-meta">
         <time class="post-date">
           <FormattedDate date={pubDate} />
         </time>
       </div>
+      <h2 class="post-title">
+        <a href={`/blog/${postSlug}/`}>{title}</a>
+      </h2>
     </header>
 
     {description && (
@@ -40,7 +40,7 @@ const postSlug = post.id
         <div class="post-tags">
           {tags.map((tag: string) => (
             <a href={`/tags/${encodePathSegmentSafe(tag)}/`} class="tag">
-              #{tag}
+              {tag}
             </a>
           ))}
         </div>
@@ -51,50 +51,37 @@ const postSlug = post.id
 
 <style>
   .post-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-sm);
+    background-color: #FFFFFF;
+    border-bottom: 1px solid var(--border-color);
     transition: all var(--transition-normal);
-    overflow: hidden;
+    padding: var(--spacing-6);
+    margin-bottom: var(--spacing-3);
+    border-radius: 12px;
+  }
+
+  .post-card:first-child {
+    padding-top: var(--spacing-6);
   }
 
   .post-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+    background-color: #F6F6F6;
   }
 
   .post-card-content {
-    padding: var(--spacing-6);
+    padding: 0;
   }
 
   .post-header {
-    margin-bottom: var(--spacing-4);
-  }
-
-  .post-title {
-    margin: 0 0 var(--spacing-2) 0;
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-tight);
-  }
-
-  .post-title a {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-  }
-
-  .post-title a:hover {
-    color: var(--primary-color);
+    margin-bottom: var(--spacing-3);
   }
 
   .post-meta {
     display: flex;
     align-items: center;
     gap: var(--spacing-3);
-    font-size: var(--font-size-sm);
+    font-size: 0.8rem;
     color: var(--text-muted);
+    margin-bottom: var(--spacing-2);
   }
 
   .post-date {
@@ -109,6 +96,23 @@ const postSlug = post.id
     margin-right: var(--spacing-2);
   }
 
+  .post-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+  }
+
+  .post-title a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .post-title a:hover {
+    color: var(--primary-color);
+  }
+
   .post-excerpt {
     margin-bottom: var(--spacing-4);
   }
@@ -117,11 +121,12 @@ const postSlug = post.id
     margin: 0;
     color: var(--text-muted);
     line-height: var(--line-height-relaxed);
+    font-size: 0.9rem;
   }
 
   .post-footer {
-    border-top: 1px solid var(--border-color);
-    padding-top: var(--spacing-4);
+    padding-top: 0;
+    border-top: none;
   }
 
   .post-tags {
@@ -132,17 +137,34 @@ const postSlug = post.id
 
   .tag {
     display: inline-block;
-    padding: var(--spacing-1) var(--spacing-3);
+    padding: 0.25rem 0.625rem;
     background-color: var(--tag-bg);
     color: var(--tag-color);
-    font-size: var(--font-size-sm);
-    border-radius: var(--border-radius-full);
+    font-size: 0.8rem;
+    border-radius: var(--border-radius);
     text-decoration: none;
     transition: all var(--transition-fast);
+    border: 1px solid var(--border-color);
   }
 
   .tag:hover {
     background-color: var(--tag-hover-bg);
     color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .post-card {
+      padding: var(--spacing-4) 0;
+    }
+
+    .post-title {
+      font-size: 1.1rem;
+    }
+
+    .post-excerpt p {
+      font-size: 0.85rem;
+    }
   }
 </style>
